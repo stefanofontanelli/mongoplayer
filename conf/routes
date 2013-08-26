@@ -2,8 +2,42 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-GET     /                           controllers.Application.index
+# Get the list of all databases
+GET     /                           controllers.Database.getAll
+# Update all databases
+PUT     /                           controllers.Database.updateAll
+# Create a new database
+POST    /                           controllers.Database.create
+# Delete all databases
+DELETE  /                           controllers.Database.deleteAll
+
+# Get the list of all collections in the database :db
+GET     /:db                           controllers.Database.get(db: String)
+# Update the content of database :db (collections)
+PUT     /:db                           controllers.Database.update(db: String)
+# Create a new collection in the database :db
+POST    /:db                           controllers.Collection.create(db: String)
+# Delete the database :db
+DELETE  /:db                           controllers.Database.delete(db: String)
+
+# Collection resource
+# Get the list of all documents in collection :collection
+GET     /:db/:collection               controllers.Collection.get(db: String, collection: String)
+# Update content of collection :collection
+PUT     /:db/:collection               controllers.Collection.update(db: String, collection: String)
+# Create a new document in collection :collection
+POST    /:db/:collection        controllers.Document.create(db: String, collection: String)
+# Delete the collection :collection
+DELETE  /:db/:collection        controllers.Collection.delete(db: String, collection: String)
+
+# Get content of the document :id
+GET     /:db/:collection/:id    controllers.Document.get(db: String, collection: String, id: String)
+# Update document :id
+PUT     /:db/:collection/:id    controllers.Document.update(db: String, collection: String, id: String)
+# Create a new entry inside document :id (WTF???)
+# POST    /:db/:collection/:id
+# Delete document :id
+DELETE  /:db/:collection/:id    controllers.Document.delete(db: String, collection: String, id: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
